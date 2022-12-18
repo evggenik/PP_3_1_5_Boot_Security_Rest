@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+</head>
+<body>
+<h2>Редактировать пользователя</h2>
+<!--<h1 th:text="${add} ? 'Создать пользователя' : 'Изменить пользователя'"/>-->
+
+<form th:method="POST" th:action="@{/admin/edit}" th:object= "${user}">
+  <label for="id">ID: </label>
+  <input readonly type="number" th:field="*{id}" id="id">
+  <label for="name">Имя: </label>
+  <input type="text" th:field="*{userName}" id="name">
+  <label for="mail">Почта: </label>
+  <input type="text" th:field="*{email}" id="mail">
+  <label for="pass">Пароль: </label>
+  <input type="text" th:field="*{password}" id="pass">
+  <label for="roles">Права: </label>
+  <input type="text" th:field="*{roles}" id="roles">
+  <label for="active">Разрешён?: </label>
+  <input type="text" th:field="*{active}" id="active">
+  <br>
+  <br>
+  <input type="submit" value="Изменить">
+</form>
+</body>
+</html>

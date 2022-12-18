@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Spring Security Example</title>
+    <title>Hello User!</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<h1>User page!</h1>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]</h1>
+<!--<span th:text="${#authentication.getPrincipal()}"></span>-->
+<!--<span sec:authentication="name">thymeleaf</span>-->
 
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Почта</th>
+        <th>Пароль</th>
+    </tr>
 
+        <tr>
+            <td th:text="${user.get().getId()}">...</td>
+            <td th:text="${user.get().getUserName()}">...</td>
+            <td th:text="${user.get().getEmail()}">...</td>
+            <td th:text="${user.get().getPassword()}">...</td>
+<!--            <td><a th:href="@{/edit/{id}(id=${user.getId()})}">Изменить</a></td>-->
+<!--            <td><a th:href="@{/delete/{id}(id=${user.getId()})}">Удалить</a></td>-->
+        </tr>
+
+</table>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>
+
+
