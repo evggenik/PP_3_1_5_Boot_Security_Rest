@@ -5,7 +5,7 @@ values ('user',
         'ROLE_USER'
         1);
 
-INSERT INTO user (username, password, email, roles, active)
+INSERT INTO user (user_name, password, email, roles, active)
 values ('admin',
         'admin',
         'admin@mail.ru',
