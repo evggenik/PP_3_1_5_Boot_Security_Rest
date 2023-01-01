@@ -1,14 +1,14 @@
 -- начальная таблица
-create table user
-(
-    id        int auto_increment
-        primary key,
-    user_name varchar(45)          not null,
-    password  varchar(255)         not null,
-    email     varchar(45)          not null,
-    roles     varchar(45)          not null,
-    active    tinyint(1) default 1 null
-);
+# create table userEntity
+# (
+#     id        int auto_increment
+#         primary key,
+#     user_name varchar(45)          not null,
+#     password  varchar(255)         not null,
+#     email     varchar(45)          not null,
+#     roles     varchar(45)          not null,
+#     active    tinyint(1) default 1 null
+# );
 
 -- The standard JDBC implementation of the UserDetailsService (JdbcDaoImpl) 
 #  create table users(

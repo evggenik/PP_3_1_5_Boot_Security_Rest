@@ -1,11 +1,16 @@
 package ru.kata.spring.boot_security.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.kata.spring.boot_security.demo.model.User;
+import org.springframework.stereotype.Repository;
+import ru.kata.spring.boot_security.demo.model.UserEntity;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByUserName(String userName);
+//import java.util.Optional;
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    Optional<UserEntity> findByUserName(String userName);
+//    Boolean existsByUserName(String username);
 
+//    UserEntity findByUserName(String userName);
 }
