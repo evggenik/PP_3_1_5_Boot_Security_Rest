@@ -17,7 +17,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "id")
     private Long id;
-    @Column(name = "user_name", unique = true, nullable = false)
+    @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
     @Column(name="first_name", nullable = false)
     private String firstName;
@@ -25,7 +25,7 @@ public class UserEntity {
     private String lastName;
     @Column(name = "password", length = 1000, nullable = false)
     private String password;
-    @Column(name = "email", unique=true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
@@ -33,5 +33,6 @@ public class UserEntity {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles = new ArrayList<>();
+
 
 }

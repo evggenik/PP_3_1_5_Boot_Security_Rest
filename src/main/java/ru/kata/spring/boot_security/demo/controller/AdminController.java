@@ -12,6 +12,7 @@ import ru.kata.spring.boot_security.demo.model.UserEntity;
 import ru.kata.spring.boot_security.demo.service.MyUserService;
 import ru.kata.spring.boot_security.demo.service.RolesService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -26,22 +27,18 @@ public class AdminController {
         this.myUserService = myUserService;
         this.rolesService = rolesService;
     }
-
-
     @GetMapping("/admin")
-    public String getUserName(Model model) {
-        List<UserEntity> users = myUserService.allUsers();
-        model.addAttribute("users", users);
+    public String getUserName(Principal principal, Model model) {
+        UserEntity loggedInUser = myUserService.findByUserName(principal.getName());
+        List<Role> roleList = myUserService.getRoles();
+        model.addAttribute("roleList", roleList);
+        model.addAttribute("users", myUserService.allUsers());
+        model.addAttribute("userLoggedIn", loggedInUser);
+        model.addAttribute("newUser", new UserEntity());
+        model.addAttribute("users_roles", rolesService.findAllRoles());
         return "admin";
     }
 
-    @GetMapping("/admin/add")
-    public String add(Model model) {
-        model.addAttribute("user", new UserEntity());
-        model.addAttribute("users_roles", rolesService.findAllRoles());
-        System.out.println(rolesService.findAllRoles());
-        return "add";
-    }
 
     @PostMapping("/admin/add")
     public String addUser(@ModelAttribute UserEntity user) {
@@ -50,22 +47,15 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         myUserService.deleteUser(id);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/edit/{id}")
-    public String update(@PathVariable("id") Long id, Model model) {
-        UserEntity user = myUserService.findById(id);
-        List<Role> roleList = myUserService.getRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("roleList", roleList);
-        return "edit";
-    }
-    @PostMapping("/admin/edit")
-    public String updateUser(UserEntity user) {
+    @PatchMapping("/admin/edit")
+    public String updateUser(@ModelAttribute("user") UserEntity user) {
+//        System.out.println(user);
         myUserService.saveUser(user);
         return "redirect:/admin";
     }

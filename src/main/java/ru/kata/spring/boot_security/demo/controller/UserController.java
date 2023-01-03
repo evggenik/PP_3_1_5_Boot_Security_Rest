@@ -13,7 +13,7 @@ import java.security.Principal;
 @Controller
 public class UserController {
 
-    private MyUserService myUserService;
+    private final MyUserService myUserService;
     @Autowired
     public UserController(MyUserService myUserService) {
         this.myUserService = myUserService;
