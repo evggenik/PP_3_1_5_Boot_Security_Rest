@@ -30,6 +30,7 @@ public class MyUserService {
         return userRepository.findAll();
     }
 
+
     public void saveUser(UserEntity userEntity) {
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         userRepository.save(userEntity);

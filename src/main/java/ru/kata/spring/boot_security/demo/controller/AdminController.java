@@ -20,22 +20,17 @@ import java.util.List;
 public class AdminController {
 
     private final MyUserService myUserService;
-    private final RolesService rolesService;
 
     @Autowired
-    public AdminController(MyUserService myUserService, RolesService rolesService) {
+    public AdminController(MyUserService myUserService) {
         this.myUserService = myUserService;
-        this.rolesService = rolesService;
+
     }
+
     @GetMapping("/admin")
     public String getUserName(Principal principal, Model model) {
         UserEntity loggedInUser = myUserService.findByUserName(principal.getName());
-        List<Role> roleList = myUserService.getRoles();
-        model.addAttribute("roleList", roleList);
-        model.addAttribute("users", myUserService.allUsers());
         model.addAttribute("userLoggedIn", loggedInUser);
-        model.addAttribute("newUser", new UserEntity());
-        model.addAttribute("users_roles", rolesService.findAllRoles());
         return "admin";
     }
 
@@ -47,16 +42,4 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/admin/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        myUserService.deleteUser(id);
-        return "redirect:/admin";
-    }
-
-    @PatchMapping("/admin/edit")
-    public String updateUser(@ModelAttribute("user") UserEntity user) {
-//        System.out.println(user);
-        myUserService.saveUser(user);
-        return "redirect:/admin";
-    }
 }
